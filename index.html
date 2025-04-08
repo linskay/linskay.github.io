@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алина Черемискина - Java Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6e48aa;
+            --primary-light: rgba(110, 72, 170, 0.1);
+            --secondary: #9d50bb;
+            --accent: #ff6b6b;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --bg-accent: #f3eef8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--bg-accent);
+            padding: 40px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -50px;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(90deg, var(--bg-accent), rgba(243, 238, 248, 0));
+            transform: skewX(-10deg);
+        }
+
+        .photo-container {
+            position: relative;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .photo {
+            width: 100%;
+            max-width: 230px;
+            height: auto;
+            border-radius: 8px;
+            border: 4px solid white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .main-content {
+            padding: 40px 50px;
+            background: white;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 5px 0;
+            font-size: 2.3em;
+        }
+
+        .tagline {
+            color: var(--secondary);
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 5px;
+            margin: 35px 0 20px 0;
+            font-size: 1.3em;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .badge i {
+            font-size: 0.9em;
+        }
+
+        .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .badge-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-light {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+        }
+
+        .experience-item {
+            margin-bottom: 25px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .company {
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-title {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .project-description {
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .project-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+            margin-left: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+        }
+
+        .birthdate {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            color: var(--dark);
+            justify-content: center;
+        }
+
+        .birthdate i {
+            color: var(--primary);
+        }
+
+        .hobby-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .hobby-item i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 250px 1fr;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                padding: 30px;
+                text-align: center;
+            }
+
+            .sidebar::after {
+                display: none;
+            }
+
+            .photo {
+                max-width: 200px;
+            }
+
+            .contact-item, .hobby-item {
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar, .main-content {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .job-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <div class="photo-container">
+            <img src="photo.jpg" alt="Фото Алины Черемискиной" class="photo">
+        </div>
+
+        <h3 class="section-title">КОНТАКТЫ</h3>
+        <a href="tel:+79254584781" class="contact-item">
+            <i class="fas fa-phone"></i> +7 (925) 458-47-81
+        </a>
+        <a href="mailto:alina.cheremiskina@gmail.com" class="contact-item">
+            <i class="fas fa-envelope"></i> alina.cheremiskina@gmail.com
+        </a>
+        <a href="https://t.me/samtakoy4" class="contact-item">
+            <i class="fab fa-telegram"></i> @samtakoy4
+        </a>
+        <a href="https://github.com/linskay" class="contact-item">
+            <i class="fab fa-github"></i> github.com/linskay
+        </a>
+        <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i> Москва, Россия
+        </div>
+        <div class="birthdate">
+            <i class="fas fa-birthday-cake"></i> 25.07.1998
+        </div>
+
+        <h3 class="section-title">НАВЫКИ</h3>
+        <div>
+            <span class="badge badge-primary"><i class="fab fa-java"></i> Java 11/17</span>
+            <span class="badge badge-primary"><i class="fas fa-leaf"></i> Spring Boot</span>
+            <span class="badge badge-primary">Hibernate</span>
+            <span class="badge badge-secondary">PostgreSQL</span>
+            <span class="badge badge-secondary">MySQL</span>
+            <span class="badge badge-secondary"><i class="fab fa-docker"></i> Docker</span>
+            <span class="badge badge-accent">REST API</span>
+            <span class="badge badge-accent">Microservices</span>
+        </div>
+
+        <h3 class="section-title">ИНТЕРЕСЫ</h3>
+        <div class="hobby-item">
+            <i class="fas fa-book-open"></i> Книги по Spring/Java
+        </div>
+        <div class="hobby-item">
+            <i class="fas fa-podcast"></i> Подкасты по ML/AI
+        </div>
+        <div class="hobby-item">
+            <i class="fas fa-gamepad"></i> Геймдев (Unity/Godot)
+        </div>
+        <div class="hobby-item">
+            <i class="fas fa-code-branch"></i> Open-source проекты
+        </div>
+
+        <h3 class="section-title">ЯЗЫКИ</h3>
+        <div class="hobby-item">
+            <i class="fas fa-language"></i> Русский (родной)
+        </div>
+        <div class="hobby-item">
+            <i class="fas fa-language"></i> English (A2)
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <h1>АЛИНА ЧЕРЕМИСКИНА</h1>
+        <div class="tagline">Java Backend Developer</div>
+
+        <section>
+            <h2 class="section-title"><i class="fas fa-user-tie"></i> О СЕБЕ</h2>
+            <p>Backend-разработчик с фокусом на Java и Spring-экосистему. Специализируюсь на создании высоконагруженных
+                отказоустойчивых систем. Имею опыт руководства командой и реализации сложных интеграций. Постоянно
+                изучаю новые технологии и лучшие практики разработки.</p>
+            <div style="margin-top: 15px;">
+                <span class="badge badge-light"><i class="fas fa-medal"></i> Spring Expert</span>
+                <span class="badge badge-light"><i class="fas fa-bolt"></i> Highload</span>
+                <span class="badge badge-light"><i class="fas fa-project-diagram"></i> Архитектура</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> ОПЫТ РАБОТЫ</h2>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Технический руководитель удаленной группы</span>
+                        <br> <span class="company">ООО "Паритет"</span>
+                    </div>
+                    <div class="date">2023 - настоящее время</div>
+                </div>
+                <p><em>Крупнейший производитель напольных покрытий в России</em></p>
+                <ul>
+                    <li>Координация работы удаленной команды отдела контроля обучения (10 человек)</li>
+                    <li>Разработка и внедрение системы автоматических отчетов (сокращение времени с 15ч → реальное
+                        время)
+                    </li>
+                    <li>Создание интерактивных дашбордов для руководства (+40% к скорости принятия решений)</li>
+                    <li>Оптимизация SQL-запросов (повышение производительности на 35%)</li>
+                    <li>Интеграция с CRM и LMS системами компании</li>
+                </ul>
+                <div style="margin-top: 10px;">
+                    <span class="badge badge-light"><i class="fas fa-users"></i> Управление командой</span>
+                    <span class="badge badge-light"><i class="fas fa-chart-line"></i> Аналитика данных</span>
+                    <span class="badge badge-light"><i class="fas fa-cogs"></i> Процессная оптимизация</span>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Java Developer</span>
+                        <br><span class="company">Крупная EdTech компания</span>
+                    </div>
+                    <div class="date">2024 - настоящее время</div>
+                </div>
+                <ul>
+                    <li>Разработка микросервисов на Spring Boot</li>
+                    <li>Реализация REST API для WEB приложений</li>
+                    <li>Оптимизация производительности существующих сервисов</li>
+                    <li>Участие в код-ревью и менторинг intern/junior-разработчиков</li>
+                </ul>
+                <div style="margin-top: 10px;">
+                    <span class="badge badge-light"><i class="fas fa-project-diagram"></i> Микросервисы</span>
+                    <span class="badge badge-light"><i class="fas fa-code"></i> REST API</span>
+                    <span class="badge badge-light"><i class="fas fa-rocket"></i> Оптимизация</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> ПРОЕКТЫ</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class="project-title">Маркетплейс (аналог Авито) <span class="project-status">MVP</span></h3>
+                    <p class="project-description">Backend для платформы перепродажи вещей с системой объявлений,
+                        комментариев и JWT-аутентификацией.</p>
+                    <div class="project-badges">
+                        <span class="badge badge-primary">Spring Boot</span>
+                        <span class="badge badge-primary">PostgreSQL</span>
+                        <span class="badge badge-secondary">Docker</span>
+                    </div>
+                    <a href="https://github.com/linskay/graduat-work" class="btn">
+                        <i class="fab fa-github"></i> Посмотреть код
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Starbank API <span class="project-status">MVP</span></h3>
+                    <p class="project-description">Микросервис для банковских рекомендаций с анализом поведения
+                        клиентов.</p>
+                    <div class="project-badges">
+                        <span class="badge badge-primary">Java 17</span>
+                        <span class="badge badge-secondary">Spring Data</span>
+                        <span class="badge badge-accent">REST</span>
+                    </div>
+                    <a href="https://github.com/linskay/starbank" class="btn">
+                        <i class="fab fa-github"></i> Посмотреть код
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">MakStore <span class="project-status">MVP</span></h3>
+                    <p class="project-description">Fullstack решение для интернет-магазина (Java + Bootstrap).</p>
+                    <div class="project-badges">
+                        <span class="badge badge-primary">Spring MVC</span>
+                        <span class="badge badge-secondary">Bootstrap</span>
+                        <span class="badge badge-accent">HTML5/CSS3</span>
+                    </div>
+                    <a href="https://github.com/linskay/makstoreshop" class="btn">
+                        <i class="fab fa-github"></i> Посмотреть код
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> ОБРАЗОВАНИЕ</h2>
+            <div class="experience-item" style="margin-bottom: 15px;">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Дополнительное профессиональное образование: Java-разработчик</span>
+                        <br> <span class="company">Skypro</span>
+                    </div>
+                    <div class="date">2025</div>
+                </div>
+            </div>
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Администратор гостиничного сервиса</span>
+                        <br> <span
+                            class="company">Московский Государственный Гуманитарно-Технологический Университет</span>
+                    </div>
+                    <div class="date">2014 - 2017</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title"><i class="fas fa-award"></i> ДОСТИЖЕНИЯ</h2>
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Участник IT Purple Hack 2025</span>
+                        <br> <span class="company">МФТИ</span>
+                    </div>
+                    <div class="date">2025</div>
+                </div>
+                <ul>
+                    <li>Разработала прототип системы рекомендаций для банковского сектора</li>
+                </ul>
+                <div style="margin-top: 10px;">
+                    <span class="badge badge-accent"><i class="fas fa-trophy"></i> Хакатон</span>
+                    <span class="badge badge-accent"><i class="fas fa-brain"></i> Machine Learning</span>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
